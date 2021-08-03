@@ -10,14 +10,16 @@ const Form = (props) => {
     //after click value will be saved in todos
     const submitTodoHandler = (e) => {
         e.preventDefault();
-        props.setTodos([
-            ...props.todos, {
-                text: props.inputText,
-                completed: false,
-                id: Math.random() * 1000
-            }
-        ]);
-        props.setInputText("");
+        if (props.inputText !== "") {
+            props.setTodos([
+                ...props.todos, {
+                    text: props.inputText,
+                    completed: false,
+                    id: Math.random() * 1000
+                }
+            ]);
+            props.setInputText("");
+        }
     }
 
     const statusHandler = (e) => {
