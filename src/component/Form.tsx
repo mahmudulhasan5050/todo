@@ -1,34 +1,47 @@
-import React from 'react';
+import {InitialState} from '../types'
 
-const Form = (props) => {
+
+type PropsType = {
+    todos: InitialState[]
+    setTodos: (text:InitialState[])=> void
+    inputText: string
+    setInputText: (text:string) => void
+    setStatus: (text:string) => void
+}
+
+const Form = ({todos,
+    setTodos,
+    inputText,
+    setInputText,
+    setStatus}:PropsType) => {
 
     //take value from input onChange
-    const inputTextHandler = (e) => {
-        props.setInputText(e.target.value);
+    const inputTextHandler = (e:any) => {
+        setInputText(e.target.value);
     };
 
     //after click value will be saved in todos
-    const submitTodoHandler = (e) => {
+    const submitTodoHandler = (e: any) => {
         e.preventDefault();
-        if (props.inputText !== "") {
-            props.setTodos([
-                ...props.todos, {
-                    text: props.inputText,
-                    completed: false,
-                    id: Math.random() * 1000
-                }
+        if (inputText !== "") {
+            setTodos([...todos, 
+                {
+                       text: inputText,
+                       completed: false,
+                        id: Math.random() * 1000
+                    }
             ]);
-            props.setInputText("");
+            setInputText("");
         }
     }
 
-    const statusHandler = (e) => {
-        props.setStatus(e.target.value);
+    const statusHandler = (e:any) => {
+        setStatus(e.target.value);
     }
     return (
         <div>
             <form>
-                <input value={props.inputText}
+                <input value={inputText}
                     onChange={inputTextHandler}
                     type="text"
                     className="todo-input" />
